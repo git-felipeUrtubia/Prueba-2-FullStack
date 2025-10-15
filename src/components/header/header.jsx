@@ -4,15 +4,21 @@ import { ShoppingCart } from 'lucide-react'
 import { ChevronDown } from 'lucide-react';
 import '../../assets/styles/header.css';
 import { useEffect, useState } from 'react';
+import productos from '../../../public/data/prod.json'
 
 export const Header = () => {
-
+    const [titulo, setTitulo] = useState("");
     const [btnCategoria, setBtnCategoria] = useState(0);
     const [rowRotate, setRowRotate] = useState(0);
+    const [prod, setProd] = useState([]);
 
     useEffect(() => {
         document.documentElement.style.setProperty("--btnCategoria", btnCategoria)
     },[btnCategoria, rowRotate])
+
+    useEffect(() => {
+        setProd(productos)
+    },[])
 
     const handleBtnCategoria = () => {
         setBtnCategoria(prev => (prev == 0 ? 1 : 0))
@@ -20,26 +26,65 @@ export const Header = () => {
     }
 
     const nav = useNavigate();
+
     const NavCat = (id) => {
         nav(`/categoria/${id}`);
     }
-    const NavHom = () => {
+
+    const NavHome = () => {
         nav("/home");
     }
 
+    const NavLogin = () => {
+        nav("/home/login");
+    }
+
+    const NavRegistro = () => {
+        nav("/home/login/registro");
+    }
+
+    const handleChange = (e) => {
+        setTitulo(e.target.value); // capturamos el valor del input
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        const titulo_limpio = titulo.trim().toLowerCase();
+        if (!titulo_limpio) return;
+
+        const p = prod.find(x => x.titulo.trim().toLowerCase() == titulo_limpio);
+        if (p) {
+            alert(
+                `*** ENCONTRADO ***\n` +
+                `Título: ${p.titulo}\n` +
+                `Precio: ${p.precio}\n` +
+                `Id: ${p.id}`
+            );
+        }else {
+            alert("No se encontró ningún título con ese nombre.");
+        }
+    }
+    
+
 
     return (
+
         <div className='contain-header'>
 
             <div className='contain-bar-and-buttons'>
                 <div className='content-logo'>40x40</div>
+
                 <div className='contain-bar-search'>
-                    <input type="text" placeholder='Buscar'/>
-                    <button className='btn-buscar'>Buscar</button>
+                    <form onSubmit={handleSubmit}>
+                        <input type="text" value={titulo} onChange={handleChange} placeholder='Buscar'/>
+                        <button type='submit' className='btn-buscar'>Buscar</button>
+                    </form>
                 </div>
+
                 <div className='contain-buttons-sesion'>
-                    <button className='btn btn-outline-primary'>Iniciar Sesión</button>
-                    <button className='btn btn-outline-primary'>Crear Cuenta</button>
+                    <button className='btn btn-outline-primary' onClick={NavLogin}>Iniciar Sesión</button>
+                    <button className='btn btn-outline-primary' onClick={NavRegistro}>Crear Cuenta</button>
                 </div>
             </div>
 
@@ -47,7 +92,7 @@ export const Header = () => {
 
 
             <div className='contain-botones-header'>
-                <button className='btn home' onClick={NavHom}><b>Home</b></button>
+                <button className='btn home' onClick={NavHome}><b>Home</b></button>
 
                 
                 <div className='contain-btn-categoria'>
