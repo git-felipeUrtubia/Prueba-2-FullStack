@@ -1,6 +1,9 @@
 
 import img from '../../../public/img.png';
 import '../../assets/styles/carruselHeader.css'
+import cof from '../../../public/callOfDuty.jpeg'
+import elden from '../../../public/eldenRing.jpg'
+import silent from '../../../public/silentHill.jpg'
 
 export const CarruselHeader = () => {
     return (
@@ -12,24 +15,24 @@ export const CarruselHeader = () => {
             </div>
             <div className="carousel-inner">
                 <div className="carousel-item active">
-                    <img src={img} className="d-block w-100" alt="img 1"/>
+                    <img src={cof} className="d-block w-100" alt="img 1"/>
                     <div className="carousel-caption d-none d-md-block">
-                        <h5>First slide label</h5>
-                        <p>Some representative placeholder content for the first slide.</p>
+                        <h5>Call Of Duty</h5>
+                        <p>Acción bélica intensa con combates en primera persona.</p>
                     </div>
                 </div>
                 <div className="carousel-item">
-                    <img src={img} className="d-block w-100" alt="img 2"/>
+                    <img src={silent} className="d-block w-100" alt="img 2"/>
                     <div className="carousel-caption d-none d-md-block">
-                        <h5>Second slide label</h5>
-                        <p>Some representative placeholder content for the second slide.</p>
+                        <h5>Silent Hill</h5>
+                        <p>Horror psicológico en una ciudad cubierta de niebla y misterio.</p>
                     </div>
                 </div>
                 <div className="carousel-item">
-                    <img src={img} className="d-block w-100" alt="img 3"/>
+                    <img src={elden} className="d-block w-100" alt="img 3"/>
                     <div className="carousel-caption d-none d-md-block">
-                        <h5>Third slide label</h5>
-                        <p>Some representative placeholder content for the third slide.</p>
+                        <h5>Elden Ring</h5>
+                        <p>Un mundo abierto desafiante y lleno de fantasía oscura.</p>
                     </div>
                 </div>
             </div>

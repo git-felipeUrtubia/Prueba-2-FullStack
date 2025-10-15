@@ -1,5 +1,5 @@
 
-
+import { useNavigate } from 'react-router-dom';
 import { ShoppingCart } from 'lucide-react'
 import { ChevronDown } from 'lucide-react';
 import '../../assets/styles/header.css';
@@ -17,6 +17,11 @@ export const Header = () => {
     const handleBtnCategoria = () => {
         setBtnCategoria(prev => (prev == 0 ? 1 : 0))
         setRowRotate(prev => (prev == 0 ? 180 : 0))
+    }
+
+    const nav = useNavigate();
+    const NavCat = (id) => {
+        nav(`/categoria/${id}`);
     }
 
 
@@ -53,20 +58,19 @@ export const Header = () => {
                     </button>
                     <div className='options'>
                         <div className='option 1'>
-                            <span>Opcion 1</span>
+                            <span onClick={NavCat(1)}>Opcion 1</span>
                         </div>
                         <div className='option 2'>
-                            <span>Opcion 2</span>
+                            <span onClick={NavCat(2)}>Opcion 2</span>
                         </div>
                         <div className='option 3'>
-                            <span>Opcion 3</span>
+                            <span onClick={NavCat(3)}>Opcion 3</span>
                         </div>
                     </div>
                 </div>
 
 
                 <button className='btn ofertas' style={{color: "gray"}}>Ofertas</button>
-                <button className='btn nosotros' style={{color: "gray"}}>Nosotros</button>
                 <button className='btn blog' style={{color: "gray"}}>Blog</button>
                 <button className='btn contacto' style={{color: "gray"}}>Contacto</button>
                 <button className='btn carrito' style={{color: "gray"}}>

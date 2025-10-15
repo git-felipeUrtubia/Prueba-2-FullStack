@@ -1,7 +1,8 @@
 
 .carousel img {
-    object-fit: cover;
-    height: 30rem;
+    object-fit: fill;
+    object-position: center;
+    height: 35rem;
 }
 
 
