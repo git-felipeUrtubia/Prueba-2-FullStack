@@ -8,10 +8,29 @@
 
 .contain-bar-and-buttons {
     background-color: burlywood;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: .5rem .5rem 0 .5rem;
+}
+
+.content-logo {
+    background-color: #ccc;
+    width: 4.5rem;
+    height: 4.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .contain-botones-header {
     background-color: brown;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.btn.carrito {
+    margin-left: 1.5rem;
+}
 
