@@ -1,13 +1,15 @@
 
 
 .contain-header {
-    background-color: rgb(177, 125, 224);
+    background-color: transparent;
     width: 100%;
     height: auto;
 }
 
+/* ------------- part 1 ------------- */
+
 .contain-bar-and-buttons {
-    background-color: burlywood;
+    background-color: transparent;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -23,14 +25,71 @@
     align-items: center;
 }
 
+.contain-bar-search {
+    width: calc(1.5rem + 14.5rem + 5rem);
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.contain-bar-search input {
+    all: unset;
+    width: 14.5rem;
+    height: 2.5rem;
+    padding: .2rem 0 .20rem .5rem;
+    border: 1.99px rgb(185, 181, 181) solid;
+    border-radius: .5rem;
+}
+
+.btn-buscar {
+    all: unset;
+    width: 5rem;
+    height: calc(2.5rem + .4rem);
+    text-align: center;
+    border: 2px rgb(92, 197, 92) solid;
+    border-radius: .5rem;
+    color: rgb(92, 197, 92);
+}
+
+/* ------------- part 2 -------------- */
+
 .contain-botones-header {
-    background-color: brown;
+    background-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: .5rem 0;
 }
 
 .btn.carrito {
+    width: 10rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     margin-left: 1.5rem;
+    background-color: rgb(25, 135, 84);
 }
+
+.btn.carrito:hover {
+    background-color: rgb(16, 90, 56);
+}
+
+.btn.carrito span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.btn.home:hover,
+.btn.ofertas:hover,
+.btn.nosotros:hover,
+.btn.blog:hover,
+.btn.contacto:hover {
+    border-color: black;
+}
+
+.btn.categorias:hover {
+    background-color: rgb(243, 238, 238);
+}
+
 

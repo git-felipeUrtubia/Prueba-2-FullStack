@@ -1,7 +1,7 @@
 import { Header } from './components/header/header.jsx';
 import { CarruselHeader } from './components/header/carruselHeader.jsx';
 import { Categorias } from './components/body/categorias.jsx';
-import './App.css'
+import './assets/styles/App.css';
 
 function App() {
 
