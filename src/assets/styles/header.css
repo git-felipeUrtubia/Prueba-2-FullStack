@@ -114,7 +114,6 @@
     width: 8.2rem;
     height: 2.3rem;
     position: relative;
-    overflow: hidden;
     z-index: 2;
 }
 
@@ -137,10 +136,14 @@
 }
 /* var(--btnCategoria) */
 .option {
+    cursor: pointer;
     width: inherit;
     height: 2rem;
     color: white;
     transition: .3s ease;
+    text-indent: 1rem;
+    display: flex;
+    align-items: center;
 }
 
 .option:hover {

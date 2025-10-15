@@ -23,6 +23,9 @@ export const Header = () => {
     const NavCat = (id) => {
         nav(`/categoria/${id}`);
     }
+    const NavHom = () => {
+        nav("/home");
+    }
 
 
     return (
@@ -44,7 +47,7 @@ export const Header = () => {
 
 
             <div className='contain-botones-header'>
-                <button className='btn home'><b>Home</b></button>
+                <button className='btn home' onClick={NavHom}><b>Home</b></button>
 
                 
                 <div className='contain-btn-categoria'>
@@ -57,14 +60,14 @@ export const Header = () => {
                         }}/></span>
                     </button>
                     <div className='options'>
-                        <div className='option 1'>
-                            <span onClick={NavCat(1)}>Opcion 1</span>
+                        <div className='option 1' onClick={() => {NavCat(1)}}>
+                            <span>Opcion 1</span>
                         </div>
-                        <div className='option 2'>
-                            <span onClick={NavCat(2)}>Opcion 2</span>
+                        <div className='option 2' onClick={() => {NavCat(2)}}>
+                            <span>Opcion 2</span>
                         </div>
-                        <div className='option 3'>
-                            <span onClick={NavCat(3)}>Opcion 3</span>
+                        <div className='option 3' onClick={() => {NavCat(3)}}>
+                            <span>Opcion 3</span>
                         </div>
                     </div>
                 </div>
