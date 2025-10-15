@@ -44,7 +44,7 @@ export const Header = () => {
     }
 
     const handleChange = (e) => {
-        setTitulo(e.target.value); // capturamos el valor del input
+        setTitulo(e.target.value);
     };
 
     const handleSubmit = (e) => {
@@ -106,13 +106,13 @@ export const Header = () => {
                     </button>
                     <div className='options'>
                         <div className='option 1' onClick={() => {NavCat(1)}}>
-                            <span>Opcion 1</span>
+                            <span>suspenso</span>
                         </div>
                         <div className='option 2' onClick={() => {NavCat(2)}}>
-                            <span>Opcion 2</span>
+                            <span>rpg</span>
                         </div>
                         <div className='option 3' onClick={() => {NavCat(3)}}>
-                            <span>Opcion 3</span>
+                            <span>shooter</span>
                         </div>
                     </div>
                 </div>
