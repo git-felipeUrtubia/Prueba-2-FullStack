@@ -1,12 +1,13 @@
 import { prodSelect } from '../../body/gridCategoria';
 import prodJson from '../../../../public/data/prod.json';
 import '../../../assets/styles/pago/seccionCarrito.css'
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // CartTemplate.jsx
 export const SeccionCarrito = () => {
 
     const [prod, setProd] = useState([]);
+    const [cantidad, setCantidad] = useState({})
     
     let productos = []
     for(let i of prodSelect) {
@@ -29,14 +30,42 @@ export const SeccionCarrito = () => {
     const calcularTotal = () => {
         let total = 0
         prodFilter.forEach((p) => {
-            console.log(p.precio)
+            // console.log(p.precio)
             total = total + p.precio
         })
         return total;
     }
 
 
+    useEffect(() => {
+        setCantidad((prev) => {
+            console.log("prev: ", prev)
+            const next = {...prev};
+            console.log("prev copiado (next): ", next)
+            for(const p of prodFilter) {
+                console.log("next[p.id] es: ", next[p.id])
 
+                if(next[p.id] == null) next[p.id] = 1;
+                console.log("next[p.id] es: ", next[p.id])
+
+            }
+            return next
+        })
+    },[prod]);
+
+    const Increment = (id) => {
+        setCantidad((prev) => ({
+            ...prev,
+            [id]: (prev[id] || 1) + 1
+        }));
+    }
+
+    const Decrement = (id) => {
+        setCantidad((prev) => ({
+            ...prev,
+            [id]: (prev[id] || 1) - 1
+        }));
+    }
 
 
   return (
@@ -56,26 +85,30 @@ export const SeccionCarrito = () => {
 
 
 
-        {prodFilter.map((p) => (
-            <div id='container' className="cart__row" key={p.id}>
-                <div className="cell cell--img">
-                    <img className="thumb" aria-hidden src={p.poster}/>
-                </div>
-                <div className="cell cell--name">{p.titulo}</div>
-                <div className="cell cell--price">${p.precio}</div>
-                <div className="cell cell--qty">
-                    <div className="qty producto">
-                        <button className="qty__btn" aria-label="Disminuir" >-</button>
-                        <span className="qty__span"> 1 </span>
-                        <button className="qty__btn" aria-label="Aumentar" >+</button>
+        {prodFilter.map((p) => {
+            const count = cantidad[p.id] || 1;
+            return (
+                <div id='container' className="cart__row" key={p.id}>
+                    <div className="cell cell--img">
+                        <img className="thumb" aria-hidden src={p.poster}/>
+                    </div>
+                    <div className="cell cell--name">{p.titulo}</div>
+                    <div className="cell cell--price">${p.precio}</div>
+                    <div className="cell cell--qty">
+                        <div className="qty producto">
+                            <button className="qty__btn" aria-label="Disminuir" onClick={() => Decrement(p.id)}>-</button>
+                            <span className="qty__span"> {count} </span>
+                            <button className="qty__btn" aria-label="Aumentar" onClick={() => Increment(p.id)}>+</button>
+                        </div>
+                    </div>
+                    <div className="cell cell--subtotal">${calcularIva(p.precio)}</div>
+                    <div className="cell cell--actions">
+                        <button className="btn btn--danger">Eliminar</button>
                     </div>
                 </div>
-                <div className="cell cell--subtotal">${calcularIva(p.precio)}</div>
-                <div className="cell cell--actions">
-                    <button className="btn btn--danger">Eliminar</button>
-                </div>
-            </div>
-        ))}
+            )
+        })}
+            
 
 
 
