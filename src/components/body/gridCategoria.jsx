@@ -3,6 +3,7 @@ import '../../assets/styles/gridCategorias.css'
 import { useEffect, useState } from 'react'
 import data from '../../../public/data/prod.json'
 
+export let prodSelect = []
 
 export const GridCategoria = () => {
     const [prod, setProd] = useState([])
@@ -10,6 +11,12 @@ export const GridCategoria = () => {
     useEffect(() => {
         setProd(data);
     },[])
+
+    const handleClick = (e) => {
+        let id = e.currentTarget.dataset.id;
+        prodSelect.push(id)
+        console.log(prodSelect)
+    }
 
     return (
         <div className='content-categorias'>
@@ -22,7 +29,11 @@ export const GridCategoria = () => {
                             <h5 className='card-title'>{p.titulo}</h5>
                             <p className='card-text'>{p.desc}</p>
                             <span>${p.precio}</span>
-                            <a href="#" className='btn btn-primary add-carro'>Añadir</a>
+                            <button 
+                                className='btn btn-primary add-carro'
+                                data-id={p.id}
+                                onClick={ handleClick }
+                            >Añadir</button>
                         </div>
                     </div>
                 ))}

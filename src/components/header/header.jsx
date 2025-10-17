@@ -35,6 +35,10 @@ export const Header = () => {
         nav("/home");
     }
 
+    const NavPago = () => {
+        nav("/home/pago")
+    }
+
     const NavLogin = () => {
         nav("/home/login");
     }
@@ -121,10 +125,12 @@ export const Header = () => {
                 <button className='btn ofertas' style={{color: "gray"}}>Ofertas</button>
                 <button className='btn blog' style={{color: "gray"}}>Blog</button>
                 <button className='btn contacto' style={{color: "gray"}}>Contacto</button>
-                <button className='btn carrito' style={{color: "gray"}}>
+
+
+                <button className='btn carrito' onClick={NavPago} style={{color: "gray"}}>
                     <span><ShoppingCart style={{color: "white"}}/></span>
                     <span>Carrito</span>
-                    <span>$5.00</span>
+                    <span>$5.000</span>
                 </button>
             </div>
 

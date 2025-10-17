@@ -1,0 +1,177 @@
+
+
+
+/* cart.css */
+:root{
+  --bg:#f6f7f9;
+  --surface:#ffffff;
+  --muted:#e5e7eb;
+  --text:#1f2937;
+  --text-2:#6b7280;
+  --primary:#16a34a;   /* verde botón */
+  --danger:#ef4444;    /* rojo botón eliminar */
+  --ghost:#6b7280;     /* gris botón limpiar */
+  --radius:12px;
+  --shadow:0 4px 16px rgba(0,0,0,.06);
+}
+
+*{box-sizing:border-box}
+
+.cart{
+  max-width: 880px;
+  margin: 32px auto;
+  padding: 8px 12px 28px;
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.cart__title{
+  font-size: 28px;
+  font-weight: 700;
+  margin: 8px 0 16px;
+}
+
+.cart__table{
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  border: 1px solid var(--muted);
+}
+
+.cart__row{
+  display:grid;
+  grid-template-columns: 96px 1.2fr 0.6fr 0.9fr 0.7fr 0.8fr;
+  align-items:center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-top: 1px solid var(--muted);
+}
+
+.cart__row:first-child{ border-top: 0; }
+
+.cart__row--head{
+  background: #f3f4f6;
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.cart__row--foot{
+  background:#f9fafb;
+  font-weight:700;
+}
+
+.cell{ font-size: 14px; }
+.cell--img{ display:flex; align-items:center; }
+.cell--name{ font-weight:500; }
+.cell--price, .cell--subtotal, .cell--totalValue{ text-align:right; font-variant-numeric: tabular-nums; }
+.cell--qty{ display:flex; justify-content:center; }
+.cell--actions{ text-align:right; }
+
+.cell--totalLabel{ text-align:right; color:#374151; }
+.cell--totalValue{ font-size:16px; }
+
+.thumb{
+  width:72px; height:44px;
+  background: #e5e7eb;
+  border-radius: 8px;
+  border:1px solid #d1d5db;
+}
+
+/* Cantidad */
+.qty{
+  width: 6.5rem;
+  height: auto;
+  display:inline-flex;
+  align-items:center;
+  border:1px solid var(--muted);
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow: inset 0 1px 0 rgba(0,0,0,.02);
+}
+
+.qty__btn{
+  border:0;
+  outline:0;
+  padding:6px 10px;
+  background:#f3f4f6;
+  cursor:pointer;       
+  font-size:16px;
+  line-height:1;
+  width: 100%;
+  height: 100%;
+  transition: .3s ease;
+}
+
+.qty__btn:hover {
+  background:#dbdbdd;
+}
+
+.qty__span{
+  width:8rem;
+  padding:6px 8px;
+  border:0;
+  text-align:center;
+  background:#fff;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+/* Botones */
+.btn{
+  display:inline-block;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:600;
+  border:1px solid transparent;
+  cursor:pointer; /* sin lógica */
+}
+
+.btn--danger{
+  background: var(--danger);
+  color:#fff;
+  border-color: #dc2626;
+}
+
+.btn--ghost{
+  background:#6b7280;
+  color:#fff;
+  border-color:#6b7280;
+}
+
+.btn--primary{
+  background: var(--primary);
+  color:#fff;
+  border-color:#15803d;
+}
+
+.cart__actions{
+  display:flex;
+  gap:12px;
+  justify-content:flex-end;
+  margin-top:16px;
+}
+
+/* Responsive */
+@media (max-width: 760px){
+  .cart__row{
+    grid-template-columns: 72px 1fr 0.7fr 1fr;
+    grid-template-areas:
+      "img name name actions"
+      "img price qty subtotal";
+  }
+  .cell--img{ grid-area: img; }
+  .cell--name{ grid-area: name; }
+  .cell--price{ grid-area: price; text-align:left; color:var(--text-2); }
+  .cell--qty{ grid-area: qty; justify-content:flex-start; }
+  .cell--subtotal{ grid-area: subtotal; text-align:left; }
+  .cell--actions{ grid-area: actions; text-align:right; }
+  .cart__row--head{ display:none; }
+  .cart__row--foot{
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "label value";
+  }
+  .cell--totalLabel{ grid-area: label; text-align:left; font-weight:700; }
+  .cell--totalValue{ grid-area: value; text-align:right; }
+}
+

@@ -4,7 +4,7 @@
         "id": 1,
         "titulo": "Call Of Duty",
         "desc": "Una reconocida saga de videojuegos de disparos en primera persona, que comenzó en la Segunda Guerra Mundial y evolucionó hacia conflictos modernos y ficticios.",
-        "precio": 89990,
+        "precio": 1000,
         "poster": "/callOfDuty.jpeg",
         "cat": "shooter"
     },
