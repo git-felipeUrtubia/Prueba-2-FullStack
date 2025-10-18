@@ -2,9 +2,9 @@
 import { useNavigate } from 'react-router-dom';
 import { ShoppingCart } from 'lucide-react'
 import { ChevronDown } from 'lucide-react';
-import '../../assets/styles/header.css';
+import '../../../assets/styles/header.css';
 import { useEffect, useState } from 'react';
-import productos from '../../../public/data/prod.json'
+import productos from '../../../../public/data/prod.json'
 
 export const Header = () => {
     const [titulo, setTitulo] = useState("");
@@ -77,7 +77,9 @@ export const Header = () => {
         <div className='contain-header'>
 
             <div className='contain-bar-and-buttons'>
-                <div className='content-logo'>40x40</div>
+                <div className='content-logo'>
+                    <h4>🎮 Level-Up Gamer</h4>
+                </div>
 
                 <div className='contain-bar-search'>
                     <form onSubmit={handleSubmit}>
@@ -129,8 +131,8 @@ export const Header = () => {
 
                 <button className='btn carrito' onClick={NavPago} style={{color: "gray"}}>
                     <span><ShoppingCart style={{color: "white"}}/></span>
-                    <span>Carrito</span>
-                    <span>$5.000</span>
+                    
+                    
                 </button>
             </div>
 

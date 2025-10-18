@@ -1,6 +1,6 @@
 
-import { Header } from "../../header/header.jsx"
-import { GridCategoriaFiltro } from "../../body/gridCategoriaFiltro.jsx"
+import { Header } from "../../general/header/header.jsx"
+import { GridCategoriaFiltro } from "../../general/body/gridCategoriaFiltro.jsx"
 import { useParams } from "react-router-dom"
 
 export const SeccionCategoria = () => {

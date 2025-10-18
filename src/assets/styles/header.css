@@ -20,12 +20,13 @@
 }
 
 .content-logo {
-    background-color: #ccc;
-    width: 4.5rem;
+    background-color: transparent;
+    width: 15rem;
     height: 4.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: rgb(30, 143, 255);
 }
 
 .contain-bar-search {
@@ -90,7 +91,7 @@
 }
 
 .btn.carrito {
-    width: 10rem;
+    width: auto;
     display: flex;
     justify-content: space-evenly;
     align-items: center;

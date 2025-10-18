@@ -1,7 +1,7 @@
-import { Header } from './components/header/header.jsx';
-import { CarruselHeader } from './components/header/carruselHeader.jsx';
-import { GridCategoria } from './components/body/gridCategoria.jsx';
-import { TituloCat } from './components/body/tituloCat.jsx';
+import { Header } from './components/general/header/header.jsx';
+import { CarruselHeader } from './components/general/header/carruselHeader.jsx';
+import { GridCategoria } from './components/general/body/gridCategoria.jsx';
+import { TituloCat } from './components/general/body/tituloCat.jsx';
 import './assets/styles/App.css';
 
 function App() {

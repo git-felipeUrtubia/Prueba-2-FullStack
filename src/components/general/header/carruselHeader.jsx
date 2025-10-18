@@ -1,9 +1,8 @@
 
-import img from '../../../public/img.png';
-import '../../assets/styles/carruselHeader.css'
-import cof from '../../../public/callOfDuty.jpeg'
-import elden from '../../../public/eldenRing.jpg'
-import silent from '../../../public/silentHill.jpg'
+import '../../../assets/styles/carruselHeader.css'
+import cof from '../../../../public/img/callOfDuty.jpeg'
+import elden from '../../../../public/img/eldenRing.jpg'
+import silent from '../../../../public/img/silentHill.jpg'
 
 export const CarruselHeader = () => {
     return (

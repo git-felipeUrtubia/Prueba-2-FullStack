@@ -1,8 +1,8 @@
 
-import '../../assets/styles/gridCategorias.css'
-import '../../assets/styles/gridCategoriaFiltro.css'
+import '../../../assets/styles/gridCategorias.css'
+import '../../../assets/styles/gridCategoriaFiltro.css'
 import { useEffect, useState } from 'react'
-import data from '../../../public/data/prod.json'
+import data from '../../../../public/data/prod.json'
 
 
 export const GridCategoriaFiltro = ({ id }) => {

@@ -1,4 +1,4 @@
-import { prodSelect } from '../../body/gridCategoria';
+import { prodSelect } from '../../general/body/gridCategoria';
 import prodJson from '../../../../public/data/prod.json';
 import '../../../assets/styles/pago/seccionCarrito.css'
 import { useEffect, useState } from 'react';
@@ -18,36 +18,29 @@ export const SeccionCarrito = () => {
         setProd(prodJson)
     },[])
 
+
     let prodFilter = prod.filter((p) => productos.includes(p.id))
 
-    // console.log("productos recibidos: ", productos)
-    // console.log("lista filtrada: ", prodFilter)
 
-    const calcularIva = (precio) => {
-        return precio = precio * 0.19
+    const calcularIva = (precio, cant) => {
+        return precio * cant * 0.19
     }
 
     const calcularTotal = () => {
+        
         let total = 0
-        prodFilter.forEach((p) => {
-            // console.log(p.precio)
-            total = total + p.precio
-        })
+        for(let p of prodFilter) {
+            let cant = cantidad[p.id] || 1     
+            total = (total + p.precio) * cant         
+        }
         return total;
     }
 
-
     useEffect(() => {
         setCantidad((prev) => {
-            console.log("prev: ", prev)
             const next = {...prev};
-            console.log("prev copiado (next): ", next)
             for(const p of prodFilter) {
-                console.log("next[p.id] es: ", next[p.id])
-
                 if(next[p.id] == null) next[p.id] = 1;
-                console.log("next[p.id] es: ", next[p.id])
-
             }
             return next
         })
@@ -58,6 +51,7 @@ export const SeccionCarrito = () => {
             ...prev,
             [id]: (prev[id] || 1) + 1
         }));
+        
     }
 
     const Decrement = (id) => {
@@ -67,9 +61,16 @@ export const SeccionCarrito = () => {
         }));
     }
 
+    const EliminarProd = (id) => {
+        const nuevaLista = prod.filter((p) => p.id !== id)
+        setProd(nuevaLista)
+    }
+    
+
 
   return (
     <div className="cart">
+        <a href="/home">ir a home</a>
 
         <h1 className="cart__title">Carrito de Compras</h1>
 
@@ -84,9 +85,9 @@ export const SeccionCarrito = () => {
         </div>
 
 
-
         {prodFilter.map((p) => {
             const count = cantidad[p.id] || 1;
+            const iva = calcularIva(p.precio, count)
             return (
                 <div id='container' className="cart__row" key={p.id}>
                     <div className="cell cell--img">
@@ -101,9 +102,9 @@ export const SeccionCarrito = () => {
                             <button className="qty__btn" aria-label="Aumentar" onClick={() => Increment(p.id)}>+</button>
                         </div>
                     </div>
-                    <div className="cell cell--subtotal">${calcularIva(p.precio)}</div>
+                    <div className="cell cell--subtotal">${iva}</div>
                     <div className="cell cell--actions">
-                        <button className="btn btn--danger">Eliminar</button>
+                        <button className="btn btn--danger" onClick={() => EliminarProd(p.id)}>Eliminar</button>
                     </div>
                 </div>
             )
@@ -123,7 +124,6 @@ export const SeccionCarrito = () => {
         </div>
 
         <div className="cart__actions">
-            <button className="btn btn--ghost">Limpiar</button>
             <button className="btn btn--primary">Comprar ahora</button>
         </div>
     </div>

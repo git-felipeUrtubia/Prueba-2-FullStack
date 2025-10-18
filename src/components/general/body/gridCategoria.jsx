@@ -1,7 +1,7 @@
 
-import '../../assets/styles/gridCategorias.css'
+import '../../../assets/styles/gridCategorias.css'
 import { useEffect, useState } from 'react'
-import data from '../../../public/data/prod.json'
+import data from '../../../../public/data/prod.json'
 
 export let prodSelect = []
 

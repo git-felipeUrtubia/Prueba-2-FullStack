@@ -129,8 +129,12 @@
 
 .btn--danger{
   background: var(--danger);
-  color:#fff;
-  border-color: #dc2626;
+  color:#ffffff;
+}
+
+.btn--danger:hover{
+  background-color: #bb2020;
+  color: white;
 }
 
 .btn--ghost{
@@ -140,9 +144,14 @@
 }
 
 .btn--primary{
-  background: var(--primary);
+  background: #413eeb;
+  transition: .3s ease;
   color:#fff;
-  border-color:#15803d;
+}
+
+.btn--primary:hover {
+  background: #171580;
+  color: white;
 }
 
 .cart__actions{
