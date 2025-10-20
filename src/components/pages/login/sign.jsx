@@ -92,9 +92,7 @@ export const Sign = () => {
                             onChange={handleChange}
                         />
                         </div>
-                        <button type="submit" className="submit">
-                        Sign in
-                    </button>
+                        <button type="submit" className="submit">Sign in</button>
 
                     <p className="signup-link">
                         No account?

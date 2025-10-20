@@ -36,7 +36,7 @@ export const Header = () => {
     }
 
     const NavPago = () => {
-        nav("/home/pago")
+        nav("/home/shopping")
     }
 
     const NavLogin = () => {
@@ -124,12 +124,11 @@ export const Header = () => {
                 </div>
 
 
-                <button className='btn ofertas' style={{color: "gray"}}>Ofertas</button>
                 <button className='btn blog' style={{color: "gray"}}>Blog</button>
                 <button className='btn contacto' style={{color: "gray"}}>Contacto</button>
 
 
-                <button className='btn carrito' onClick={NavPago} style={{color: "gray"}}>
+                <button className='btn carrito' onClick={NavPago}>
                     <span><ShoppingCart style={{color: "white"}}/></span>
                     
                     

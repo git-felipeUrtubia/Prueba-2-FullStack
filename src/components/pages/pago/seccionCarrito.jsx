@@ -67,7 +67,6 @@ export const SeccionCarrito = () => {
     }
     
 
-
   return (
     <div className="cart">
         <a href="/home">ir a home</a>
@@ -124,7 +123,7 @@ export const SeccionCarrito = () => {
         </div>
 
         <div className="cart__actions">
-            <button className="btn btn--primary">Comprar ahora</button>
+            <a href='/home/shopping/pago' className="btn btn--primary">Comprar ahora</a>
         </div>
     </div>
   );
