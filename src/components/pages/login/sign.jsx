@@ -2,6 +2,29 @@
 import { useState } from 'react';
 import '../../../assets/styles/sign.css'
 
+
+
+export const checkLogin = (form, usuarios) => {
+    const {email, passd} = form;
+
+    if(usuarios.length == 0) {
+        alert("Usuario no existe ❌")
+        return false;
+    }
+
+    const user = usuarios.find(
+        (u) => u.email == email && u.passd == passd
+    )
+    if(user) {
+        alert("Iniciando sesión... ✅");
+        return true;
+    }else {
+        alert("Email o contraseña incorrectos ❌");
+        return false;
+    }
+
+}
+
 export const Sign = () => {
 
     const [form, setForm] = useState({
@@ -26,26 +49,7 @@ export const Sign = () => {
         return false;
     }
 
-    const checkLogin = (form, usuarios) => {
-        const {email, passd} = form;
-
-        if(usuarios.length == 0) {
-            alert("Usuario no existe ❌")
-            return false;
-        }
-
-        const user = usuarios.find(
-            (u) => u.email == email && u.passd == passd
-        )
-        if(user) {
-            alert("Iniciando sesión... ✅");
-            return true;
-        }else {
-            alert("Email o contraseña incorrectos ❌");
-            return false;
-        }
-
-    }
+    
 
 
     const handleLogin = (e) => {

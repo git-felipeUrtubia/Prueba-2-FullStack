@@ -3,7 +3,25 @@ import prodJson from '../../../../public/data/prod.json';
 import '../../../assets/styles/pago/seccionCarrito.css'
 import { useEffect, useState } from 'react';
 
-// CartTemplate.jsx
+export const calcularIva = (precio, cant) => {
+    return precio * cant * 0.19
+}
+
+export const calcularTotal = (prodFilter, cantidad) => {
+    let total = 0
+    for(let p of prodFilter) {
+        let cant = cantidad[p.id] || 1     
+        total = total + p.precio * cant         
+    }
+    return total;
+}
+
+export const calcularPrecioProd = (precio, cantidad) => {
+    console.log(precio, cantidad)
+    precio = precio * cantidad
+    return precio
+}
+
 export const SeccionCarrito = () => {
 
     const [prod, setProd] = useState([]);
@@ -20,21 +38,6 @@ export const SeccionCarrito = () => {
 
 
     let prodFilter = prod.filter((p) => productos.includes(p.id))
-
-
-    const calcularIva = (precio, cant) => {
-        return precio * cant * 0.19
-    }
-
-    const calcularTotal = () => {
-        
-        let total = 0
-        for(let p of prodFilter) {
-            let cant = cantidad[p.id] || 1     
-            total = (total + p.precio) * cant         
-        }
-        return total;
-    }
 
     useEffect(() => {
         setCantidad((prev) => {
@@ -86,14 +89,16 @@ export const SeccionCarrito = () => {
 
         {prodFilter.map((p) => {
             const count = cantidad[p.id] || 1;
-            const iva = calcularIva(p.precio, count)
+            const iva = calcularIva(p.precio, count);
+            const precio = calcularPrecioProd(p.precio, cantidad[p.id]);
+            console.log(precio)
             return (
                 <div id='container' className="cart__row" key={p.id}>
                     <div className="cell cell--img">
                         <img className="thumb" aria-hidden src={p.poster}/>
                     </div>
                     <div className="cell cell--name">{p.titulo}</div>
-                    <div className="cell cell--price">${p.precio}</div>
+                    <div className="cell cell--price">${precio}</div>
                     <div className="cell cell--qty">
                         <div className="qty producto">
                             <button className="qty__btn" aria-label="Disminuir" onClick={() => Decrement(p.id)}>-</button>
@@ -118,7 +123,7 @@ export const SeccionCarrito = () => {
             <div className="cell cell--totalLabel" aria-hidden />
             <div className="cell cell--totalLabel" aria-hidden />
             <div className="cell cell--totalLabel">Total</div>
-            <div className="cell cell--totalValue">${calcularTotal()}</div>
+            <div className="cell cell--totalValue">${calcularTotal(prodFilter, cantidad)}</div>
             <div className="cell" aria-hidden /></div>
         </div>
 

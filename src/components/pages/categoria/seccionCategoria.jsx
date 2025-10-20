@@ -12,7 +12,7 @@ export const SeccionCategoria = () => {
         <div>
             <Header />
             <div className="bodyTerror">
-                <GridCategoriaFiltro id={id_cat}/>
+                <GridCategoriaFiltro id={id_cat}/> 
             </div>
         </div>
     )
