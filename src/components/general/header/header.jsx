@@ -47,6 +47,14 @@ export const Header = () => {
         nav("/home/login/registro");
     }
 
+    const NavBlog = () => {
+        nav("/home/blog")
+    }
+
+    const NavContacto = () => {
+        nav("/home/contacto")
+    }
+
     const handleChange = (e) => {
         setTitulo(e.target.value);
     };
@@ -123,15 +131,13 @@ export const Header = () => {
                     </div>
                 </div>
 
+                <button className='btn blog' style={{color: "gray"}} onClick={NavBlog}>Blog</button>
 
-                <button className='btn blog' style={{color: "gray"}}>Blog</button>
-                <button className='btn contacto' style={{color: "gray"}}>Contacto</button>
+                <button className='btn contacto' style={{color: "gray"}} onClick={NavContacto}>Contacto</button>
 
 
                 <button className='btn carrito' onClick={NavPago}>
                     <span><ShoppingCart style={{color: "white"}}/></span>
-                    
-                    
                 </button>
             </div>
 
