@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import App from './App.jsx'
@@ -16,6 +16,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<App />} />
         <Route path="/categoria/:id" element={<SeccionCategoria />} />
         <Route path="/home/shopping" element={<SeccionCarrito />} />
