@@ -4,7 +4,6 @@ import { ShoppingCart } from 'lucide-react'
 import { ChevronDown } from 'lucide-react';
 import '../../../assets/styles/header.css';
 import { useEffect, useState } from 'react';
-import productos from '../../../../public/data/prod.json'
 
 export const Header = () => {
     const [titulo, setTitulo] = useState("");
@@ -17,8 +16,13 @@ export const Header = () => {
     },[btnCategoria, rowRotate])
 
     useEffect(() => {
-        setProd(productos)
-    },[])
+        fetch("http://localhost:8080/api/v1/productos")
+            .then(response => response.json())
+            .then(data => {
+                setProd(data);
+            })
+            .catch(error => console.error("Error al obtener productos:", error));
+    }, []);
 
     const handleBtnCategoria = () => {
         setBtnCategoria(prev => (prev == 0 ? 1 : 0))
@@ -65,13 +69,13 @@ export const Header = () => {
         const titulo_limpio = titulo.trim().toLowerCase();
         if (!titulo_limpio) return;
 
-        const p = prod.find(x => x.titulo.trim().toLowerCase() == titulo_limpio);
+        const p = prod.find(x => x.nomProducto.trim().toLowerCase() == titulo_limpio);
         if (p) {
             alert(
                 `*** ENCONTRADO ***\n` +
-                `Título: ${p.titulo}\n` +
-                `Precio: ${p.precio}\n` +
-                `Id: ${p.id}`
+                `Título: ${p.nomProducto}\n` +
+                `Precio: ${p.precioProducto}\n` +
+                `Id: ${p.id_producto}`
             );
         }else {
             alert("No se encontró ningún título con ese nombre.");

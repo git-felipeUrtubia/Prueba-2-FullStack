@@ -1,5 +1,4 @@
 import { prodSelect } from '../../general/body/gridCategoria';
-import prodJson from '../../../../public/data/prod.json';
 import '../../../assets/styles/pago/seccionCarrito.css'
 import { useEffect, useState } from 'react';
 
@@ -10,8 +9,8 @@ export const calcularIva = (precio, cant) => {
 export const calcularTotal = (prodFilter, cantidad) => {
     let total = 0
     for(let p of prodFilter) {
-        let cant = cantidad[p.id] || 1     
-        total = total + p.precio * cant         
+        let cant = cantidad[p.id_producto] || 1     
+        total = total + p.precioProducto * cant         
     }
     return total;
 }
@@ -33,17 +32,22 @@ export const SeccionCarrito = () => {
     }
 
     useEffect(() => {
-        setProd(prodJson)
-    },[])
+        fetch("http://localhost:8080/api/v1/productos")
+            .then(response => response.json())
+            .then(data => {
+                setProd(data);
+            })
+            .catch(error => console.error("Error al obtener productos:", error));
+    }, []);
 
 
-    let prodFilter = prod.filter((p) => productos.includes(p.id))
+    let prodFilter = prod.filter((p) => productos.includes(p.id_producto))
 
     useEffect(() => {
         setCantidad((prev) => {
             const next = {...prev};
             for(const p of prodFilter) {
-                if(next[p.id] == null) next[p.id] = 1;
+                if(next[p.id_producto] == null) next[p.id_producto] = 1;
             }
             return next
         })
@@ -65,10 +69,17 @@ export const SeccionCarrito = () => {
     }
 
     const EliminarProd = (id) => {
-        const nuevaLista = prod.filter((p) => p.id !== id)
+        const nuevaLista = prod.filter((p) => p.id_producto !== id)
         setProd(nuevaLista)
     }
+
+    const LocalStorage = (total) => {
+        localStorage.setItem("total", total);
+        const sinDuplicados = [...new Set(Productos)];
+        localStorage.setItem("productos", JSON.stringify(sinDuplicados));
+    }
     
+    const Productos = JSON.parse(localStorage.getItem("productos")) || [];
 
   return (
     <div className="cart">
@@ -88,27 +99,35 @@ export const SeccionCarrito = () => {
 
 
         {prodFilter.map((p) => {
-            const count = cantidad[p.id] || 1;
-            const iva = calcularIva(p.precio, count);
-            const precio = calcularPrecioProd(p.precio, cantidad[p.id]);
-            console.log(precio)
+            const count = cantidad[p.id_producto] || 1;
+            const iva = calcularIva(p.precioProducto, count);
+            const precio = calcularPrecioProd(p.precioProducto, cantidad[p.id_producto]);
+
+            const prodSubmit = {
+                "id_producto": p.id_producto,
+                "cant_producto": count
+            }
+            Productos.push(prodSubmit)
+
+            console.log("este es el precio: " + precio)
+
             return (
-                <div id='container' className="cart__row" key={p.id}>
+                <div id='container' className="cart__row" key={p.id_producto}>
                     <div className="cell cell--img">
-                        <img className="thumb" aria-hidden src={p.poster}/>
+                        <img className="thumb" aria-hidden src={p.posterProducto}/>
                     </div>
-                    <div className="cell cell--name">{p.titulo}</div>
+                    <div className="cell cell--name">{p.nomProducto}</div>
                     <div className="cell cell--price">${precio}</div>
                     <div className="cell cell--qty">
                         <div className="qty producto">
-                            <button className="qty__btn" aria-label="Disminuir" onClick={() => Decrement(p.id)}>-</button>
+                            <button className="qty__btn" aria-label="Disminuir" onClick={() => Decrement(p.id_producto)}>-</button>
                             <span className="qty__span"> {count} </span>
-                            <button className="qty__btn" aria-label="Aumentar" onClick={() => Increment(p.id)}>+</button>
+                            <button className="qty__btn" aria-label="Aumentar" onClick={() => Increment(p.id_producto)}>+</button>
                         </div>
                     </div>
                     <div className="cell cell--subtotal">${iva}</div>
                     <div className="cell cell--actions">
-                        <button className="btn btn--danger" onClick={() => EliminarProd(p.id)}>Eliminar</button>
+                        <button className="btn btn--danger" onClick={() => EliminarProd(p.id_producto)}>Eliminar</button>
                     </div>
                 </div>
             )
@@ -128,7 +147,7 @@ export const SeccionCarrito = () => {
         </div>
 
         <div className="cart__actions">
-            <a href='/home/shopping/pago' className="btn btn--primary">Comprar ahora</a>
+            <a href='/home/shopping/pago' className="btn btn--primary" onClick={() => LocalStorage( calcularTotal(prodFilter, cantidad) )}>Comprar ahora</a>
         </div>
     </div>
   );
