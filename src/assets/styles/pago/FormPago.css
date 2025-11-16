@@ -19,8 +19,24 @@
 
 .metodo {
     width: 8rem;
-    height: 3rem;
-    background-color: #3498db;
+    height: 3.5rem;
+    padding: 1rem;
+    background-color: #4c0bc5;
+    color: white;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: .5rem;
+    transition: .3s ease;
+    cursor: pointer;
+}
+
+.metodo:hover {
+    background-color: #35068d;
+}
+
+.metodo.active {
+    background-color: #cc0b1b;
 }
 
 .main {

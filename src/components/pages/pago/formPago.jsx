@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../../../assets/styles/pago/FormPago.css'
+import axios from "axios"
 
 
 
 export const FormPago = () => {
 
     const [monto, setMonto] = useState(0);
-    const [fechaPago, setFechaPago] = useState(new Date().toLocaleDateString("es-CL"));
+    const [fechaPago, setFechaPago] = useState("");
     const [metodoPago, setMetodoPago] = useState("");
 
 
@@ -16,10 +17,30 @@ export const FormPago = () => {
     const productos = localStorage.getItem("productos");
     console.log(productos);
 
+    useEffect(() => {
 
-    localStorage.setItem("total", 0);
-    localStorage.setItem("productos", []);
+        setMonto(total)
+        setFechaPago(new Date().toLocaleDateString("es-CL"))
 
+    }, [total])
+
+
+    const onClickPagar = () => {
+
+        axios.post("http://localhost:8080/api/v1/pedidos", {
+            cliente: {
+
+            }
+        })
+        .then(response => {
+            console.log("OK:", response.data);
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+
+
+    }
 
     const [form, setForm] = useState({
         "num_tarjeta": "",
@@ -99,18 +120,27 @@ export const FormPago = () => {
                     <div className="card__title">Completa tu Pago</div>
                     <form className="content-cart">
 
-                        <div className='metodo'>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-credit-card-2-back" viewBox="0 0 16 16">
+                        <div className={`metodo ${metodoPago == "debit" ? "active" : ""}`} onClick={() => setMetodoPago("debit")}>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#ffff" className="bi bi-credit-card-2-back" viewBox="0 0 16 16">
                                 <path d="M11 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5z" />
                                 <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm13 2v5H1V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1m-1 9H2a1 1 0 0 1-1-1v-1h14v1a1 1 0 0 1-1 1" />
                             </svg>
                             debit</div>
-                        <div className='metodo'>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-credit-card-2-front" viewBox="0 0 16 16">
+
+                        <div className={`metodo ${metodoPago == "credit" ? "active" : ""}`} onClick={() => setMetodoPago("credit")}>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#ffff" className="bi bi-credit-card-2-front" viewBox="0 0 16 16">
                                 <path d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z" />
                                 <path d="M2 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5" />
                             </svg>
-                            credit</div>
+                            credit
+
+                        </div>
+
+                        <input className="card__form" type="text" placeholder='Nombre'/>
+                        <input className="card__form" type="text" placeholder='Apellido'/>
+
 
                     </form>
                     <form className="card__form" onSubmit={submitForm}>
