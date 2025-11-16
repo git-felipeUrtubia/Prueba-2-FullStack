@@ -59,7 +59,7 @@ export const FormPago = () => {
     }
 
     const checkMetodoPago = () => {
-        if(metodoPago == "") {
+        if (metodoPago == "") {
             alert("Debes seleccionar una opción: crédito o débito.")
             return false
         }
@@ -109,7 +109,7 @@ export const FormPago = () => {
 
         if (checkNumTrajeta(form)) {
             return
-        }else if(!checkMetodoPago()) {
+        } else if (!checkMetodoPago()) {
             return
         } else if (checkExpTarjeta(form)) {
             return
@@ -141,58 +141,97 @@ export const FormPago = () => {
 
     }
 
-    console.log(productos)
-    console.log(prodJson)
+    // console.log(prodJson)
 
-    console.log({
-        "cliente": {
-            "first_name_cli": formCli.first_name_cli,
-            "last_name_cli": formCli.last_name_cli
-        },
-        "detalle_pedidos": prodJson,
-        "pago": [
-            {
-                "monto_total": parseInt(monto),
-                "fecha_pago": fechaPago,
-                "metodo_pago": metodoPago
-            }
-        ]
-    })
+    // console.log({
+    //     "cliente": {
+    //         "first_name_cli": formCli.first_name_cli,
+    //         "last_name_cli": formCli.last_name_cli
+    //     },
+    //     "detalle_pedidos": prodJson,
+    //     "pago": [
+    //         {
+    //             "monto_total": parseInt(monto),
+    //             "fecha_pago": fechaPago,
+    //             "metodo_pago": metodoPago
+    //         }
+    //     ]
+    // })
 
-    const onClickPagar = () => {
+    // const onClickPagar = () => {
 
-        if (checkForm) {
+    //     if (checkForm) {
 
-            axios.post("http://localhost:8080/api/v1/pedidos", {
+    //         axios.post("http://localhost:8080/api/v1/pedidos", {
 
-                cliente: {
-                    "first_name_cli": formCli.first_name_cli,
-                    "last_name_cli": formCli.last_name_cli
-                },
-                detalle_pedidos: prodJson,
-                pago: [
-                    {
-                        "monto_total": parseInt(monto),
-                        "fecha_pago": fechaPago,
-                        "metodo_pago": metodoPago
-                    }
-                ]
+    //             cliente: {
+    //                 "first_name_cli": formCli.first_name_cli,
+    //                 "last_name_cli": formCli.last_name_cli
+    //             },
+    //             detalle_pedidos: prodJson,
+    //             pago: [
+    //                 {
+    //                     "monto_total": parseInt(monto),
+    //                     "fecha_pago": fechaPago,
+    //                     "metodo_pago": metodoPago
+    //                 }
+    //             ]
 
-            })
-                .then(response => {
-                    console.log("OK:", response.data);
+    //         })
+    //             .then(response => {
+    //                 console.log("OK:", response.data);
 
-                    alert("Pago realizado con éxito.");
+    //                 alert("Pago realizado con éxito.");
 
-                    localStorage.setItem("total", 0);
-                    localStorage.setItem("productos", JSON.stringify([]));
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                });
+    //                 localStorage.setItem("total", 0);
+    //                 localStorage.setItem("productos", JSON.stringify([]));
+    //             })
+    //             .catch(error => {
+    //                 console.error("Error:", error);
+    //             });
 
+    //     }
+    // }
+
+    const handlePagar = (e) => {
+        e.preventDefault();
+
+        if (checkNumTrajeta(form)) {
+            return
+        } else if (!checkMetodoPago()) {
+            return
+        } else if (checkExpTarjeta(form)) {
+            return
+        } else if (checkCVVTarjeta(form)) {
+            return
+        } else {
+            setCheckForm(true)
         }
-    }
+
+        axios.post("http://localhost:8080/api/v1/pedidos", {
+            cliente: {
+                "first_name_cli": formCli.first_name_cli,
+                "last_name_cli": formCli.last_name_cli
+            },
+            detalle_pedidos: prodJson,
+            pago: [
+                {
+                    "monto_total": parseInt(monto),
+                    "fecha_pago": fechaPago,
+                    "metodo_pago": metodoPago
+                }
+            ]
+        })
+            .then(response => {
+                console.log("OK:", response.data);
+                alert("Pago realizado con éxito.");
+                localStorage.setItem("total", 0);
+                localStorage.setItem("productos", JSON.stringify([]));
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+    };
 
     return (
         <>
@@ -208,7 +247,7 @@ export const FormPago = () => {
                 <div className="header"></div>
                 <div className="card">
                     <div className="card__title">Completa tu Pago</div>
-                    <form className="content-cart" onSubmit={submitFormCli}>
+                    <form className="content-cart" onSubmit={ (e) => e.preventDefault() }>
 
                         <div className='content-buttons-cart'>
                             <div className={`metodo ${metodoPago == "debito" ? "active" : ""}`} onClick={() => setMetodoPago("debito")}>
@@ -254,7 +293,7 @@ export const FormPago = () => {
 
 
                     </form>
-                    <form className="card__form" onSubmit={submitForm}>
+                    <form className="card__form" onSubmit={ handlePagar }>
 
                         <input className="field field--card"
                             placeholder='Numero de tarjeta'
@@ -276,10 +315,7 @@ export const FormPago = () => {
                             value={form.cvv_tarjeta}
                             onChange={handleChange}
                         />
-                        <button type="submit" className="btn btn-outline-primary"
-                            style={{ borderColor: "blue" }}
-                            onClick={onClickPagar}
-                        >Pagar</button>
+                        <button type="submit" className="btn btn-outline-primary" style={{ borderColor: "blue" }} >Pagar</button>
                     </form>
                     <p className="agreement">Al continuar aceptas nuestros<a className='btn-terminos' href="www.google.com"> Términos y Condiciones</a></p>
                 </div>
