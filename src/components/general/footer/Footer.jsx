@@ -8,21 +8,21 @@ import { Instagram } from 'lucide-react';
 
 export const Footer = () => {
     return (
-        <footer class="footer-distributed">
+        <footer className="footer-distributed">
 
-			<div class="footer-right">
+			<div className="footer-right">
 
-				<a href="#"><i class="fa fa-facebook"><Facebook /></i></a>
-				<a href="#"><i class="fa fa-twitter"><Twitter /></i></a>
-				<a href="#"><i class="fa fa-linkedin"><Github /></i></a>
-				<a href="#"><i class="fa fa-github"><Instagram /></i></a>
+				<a href="#"><i className="fa fa-facebook"><Facebook /></i></a>
+				<a href="#"><i className="fa fa-twitter"><Twitter /></i></a>
+				<a href="#"><i className="fa fa-linkedin"><Github /></i></a>
+				<a href="#"><i className="fa fa-github"><Instagram /></i></a>
 
 			</div>
 
-			<div class="footer-left">
+			<div className="footer-left">
 
-				<p class="footer-links">
-					<a class="link-1" href="#">Home</a>
+				<p className="footer-links">
+					<a className="link-1" href="#">Home</a>
 
 					<a href="#">Blog</a>
 
