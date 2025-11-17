@@ -49,9 +49,6 @@ export const Sign = () => {
         return false;
     }
 
-    
-
-
     const handleLogin = (e) => {
 
         e.preventDefault();
@@ -96,6 +93,7 @@ export const Sign = () => {
                             onChange={handleChange}
                         />
                         </div>
+                        
                         <button type="submit" className="submit">Sign in</button>
 
                     <p className="signup-link">

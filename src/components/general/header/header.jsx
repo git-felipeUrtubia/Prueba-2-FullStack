@@ -89,6 +89,7 @@ export const Header = () => {
         <div className='contain-header'>
 
             <div className='contain-bar-and-buttons'>
+
                 <div className='content-logo'>
                     <h4>🎮 Level-Up Gamer</h4>
                 </div>
@@ -104,6 +105,7 @@ export const Header = () => {
                     <button className='btn btn-outline-primary' onClick={NavLogin}>Iniciar Sesión</button>
                     <button className='btn btn-outline-primary' onClick={NavRegistro}>Crear Cuenta</button>
                 </div>
+
             </div>
 
 
