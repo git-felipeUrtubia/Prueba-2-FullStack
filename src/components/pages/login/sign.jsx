@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import '../../../assets/styles/sign.css'
-
+import axios from "axios"
 
 
 export const checkLogin = (form, usuarios) => {
@@ -61,6 +61,19 @@ export const Sign = () => {
         }else if(checkLogin(form, usuarios)) {
             return
         }
+
+
+
+        axios.get(`http://localhost:8080/api/v1/users/${form.email}/${form.passd}`)
+        
+            .then(response => {
+                console.log(response.data)
+
+            }).catch(error => {
+                console.log("Error: ", error)
+            })
+
+
 
     }
 

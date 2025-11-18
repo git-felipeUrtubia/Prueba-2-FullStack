@@ -1,6 +1,7 @@
 
 import { useState } from 'react'
 import '../../../assets/styles/createSign.css'
+import axios from "axios"
 
 export const CreateSign = () => {
 
@@ -8,15 +9,15 @@ export const CreateSign = () => {
         "first_name": "",
         "last_name": "",
         "email": "",
-        "passd": "" ,
+        "passd": "",
         "passd_conf": ""
     })
 
     const handleChange = (e) => {
-        const {name, value} = e.target
+        const { name, value } = e.target
 
         setForm({
-            ...form, 
+            ...form,
             [name]: value
         })
     }
@@ -24,15 +25,15 @@ export const CreateSign = () => {
     const checkCamposVacios = (form) => {
         for (let element of Object.values(form)) {
             if (!element) {
-            return true;
+                return true;
             }
         }
         return false;
     }
 
     const checkPassdNoCoincide = (form) => {
-        const {passd, passd_conf} = form;
-        if(passd != passd_conf) {
+        const { passd, passd_conf } = form;
+        if (passd != passd_conf) {
             return true
         }
         return false
@@ -40,8 +41,8 @@ export const CreateSign = () => {
 
     const checkFormatoEmail = (form) => {
         let regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
-        const {email} = form
-        if(!regex.test(email)) {
+        const { email } = form
+        if (!regex.test(email)) {
             return true
         }
         return false
@@ -60,16 +61,16 @@ export const CreateSign = () => {
             alert("El apellido no puede contener números ni caracteres especiales");
             return true;
         }
-        
+
         return false;
     }
 
     const checkLengthPassd = (form) => {
         const { passd } = form;
-        if(passd.length < 5) {
+        if (passd.length < 5) {
             alert("La contraseña debe tener minimo 5 caracteres")
             return true;
-        }else {
+        } else {
             return false;
         }
     }
@@ -83,8 +84,6 @@ export const CreateSign = () => {
         console.log("Password:", form.passd);
         console.log("Confirmación Password:", form.passd_conf);
 
-        let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
 
         if (form.passd != form.passd_conf) {
             alert("Las contraseñas no coinciden");
@@ -92,54 +91,62 @@ export const CreateSign = () => {
         }
 
 
-        if(checkCamposVacios(form)) {
+        if (checkCamposVacios(form)) {
             alert("Todos los campos son obligatorios");
             return
-        }else if(checkPassdNoCoincide(form)) {
+        } else if (checkPassdNoCoincide(form)) {
             alert("Contraseñas no coinciden")
             return
-        }else if(checkFormatoEmail(form)) {
+        } else if (checkFormatoEmail(form)) {
             alert("Ingrese un formato de email valido")
             return
-        }else if(checkFirsAndLastName(form)) {
+        } else if (checkFirsAndLastName(form)) {
             return
-        }else if (checkLengthPassd(form)) {
+        } else if (checkLengthPassd(form)) {
             return
         }
 
 
         // *********************************************************
 
-        usuarios.push({
-            first_name: form.first_name,
-            last_name: form.last_name,
-            email: form.email,
-            passd: form.passd,
-            passd_conf: form.passd_conf
-        });
 
-        localStorage.setItem("usuarios", JSON.stringify(usuarios));
+        axios.post("http://localhost:8080/api/v1/users", {
 
-        alert("Usuario registrado con éxito ✅");
+            emailUser: form.email,
+            passwordUser: form.passd,
+            rolUser: "user",
+            cliente: {
+                firstName: form.first_name,
+                lastName: form.last_name
+            }
 
-        setForm({
-            first_name: "",
-            last_name: "",
-            email: "",
-            passd: "",
-            passd_conf: ""
-        });
+        })
+            .then(response => {
+                console.log("OK:", response.data);
+                alert("Usuario registrado con éxito ✅");
+                setForm({
+                    first_name: "",
+                    last_name: "",
+                    email: "",
+                    passd: "",
+                    passd_conf: ""
+                });
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+
 
     };
 
 
     return (
         <div className='contain-create-sign'>
-        
+
             <form className="form" onSubmit={handleSubmit}>
                 <p className="title">Register </p>
                 <p className="message">Signup now and get full access to our app. </p>
-                    <div className="flex">
+                <div className="flex">
                     <label>
                         <input required="" placeholder="" type="text" name='first_name' value={form.first_name} onChange={handleChange} className="input" />
                         <span>Firstname</span>
@@ -149,20 +156,20 @@ export const CreateSign = () => {
                         <input required="" placeholder="" type="text" name='last_name' value={form.last_name} onChange={handleChange} className="input" />
                         <span>Lastname</span>
                     </label>
-                </div>  
-                        
+                </div>
+
                 <label>
-                    <input 
-                        required="" 
-                        placeholder="" 
-                        type="email" 
+                    <input
+                        required=""
+                        placeholder=""
+                        type="email"
                         name='email'
                         value={form.email}
-                        onChange={handleChange} 
+                        onChange={handleChange}
                         className="input" />
                     <span>Email</span>
-                </label> 
-                    
+                </label>
+
                 <label>
                     <input required="" placeholder="" type="password" name='passd' value={form.passd} onChange={handleChange} className="input" />
                     <span>Password</span>
