@@ -112,6 +112,8 @@ export const CreateSign = () => {
 
         axios.post("http://localhost:8080/api/v1/users", {
 
+            firstNameUser : "",
+            lastNameUser: "",
             emailUser: form.email,
             passwordUser: form.passd,
             rolUser: "user",

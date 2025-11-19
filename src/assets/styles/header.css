@@ -7,9 +7,29 @@
 }
 
 /* ------------- part 1 ------------- */
+.content-elements-perfil {
+    all: unset;
+    background-color: rgb(60, 98, 202);
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    padding: .5rem;
+    border-radius: .3rem;
+    gap: 1rem;
+    cursor: pointer;
+    transition: .3s ease;
+    color: white;
+}
+
+.content-elements-perfil:hover {
+    background-color: rgb(33, 53, 145);
+}
+
+
 
 .icon-perfile {
-    color: #405c9e;
+    color: #ffffff;
     cursor: pointer;
 }
 
@@ -78,8 +98,9 @@
 }
 
 .contain-buttons-sesion {
-    width: 16rem;
-    height: 2.5rem;
+    background-color: transparent;
+    width: auto;
+    height: 3rem;
     display: flex;
     justify-content: space-between;
 }

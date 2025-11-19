@@ -1,4 +1,4 @@
-
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import '../../../assets/styles/sign.css'
 import axios from "axios"
@@ -6,6 +6,8 @@ import { data } from 'react-router-dom';
 
 
 export const Sign = () => {
+
+    const nav = useNavigate();
 
     const [form, setForm] = useState({
         "email": "",
@@ -40,13 +42,18 @@ export const Sign = () => {
 
 
 
-        axios.get(`http://localhost:8080/api/v1/users/${form.email}/${form.passd}`)
+        axios.get(`http://localhost:8080/api/v1/tokens/${form.email}/${form.passd}`)
 
             .then(response => {
 
-                if (response.data) alert("Iniciando sesión... ✅"); else alert("Email o contraseña incorrectos ❌");
+                if (response.data) {
+                    alert("Iniciando sesión... ✅");
+                    localStorage.setItem("token", JSON.stringify(response.data));
+                    nav("/home");
+                } else {
+                    alert("Email o contraseña incorrectos ❌");
+                }
                 
-                localStorage.setItem("token", JSON.stringify(response.data));
 
             }).catch(error => {
                 console.log("Error: ", error)

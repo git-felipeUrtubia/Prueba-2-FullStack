@@ -11,6 +11,7 @@ import { SeccionCarrito } from './components/pages/pago/seccionCarrito.jsx';
 import { FormPago } from './components/pages/pago/formPago.jsx';
 import { Blog } from './components/pages/w-osorio/pages/Blog.jsx'; 
 import { Contacto } from './components/pages/w-osorio/pages/Contacto.jsx';
+import { Perfil } from './components/pages/login/perfil.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -22,8 +23,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/home/shopping" element={<SeccionCarrito />} />
         <Route path="/home/login" element={<Sign />} />
         <Route path="/home/login/registro" element={<CreateSign />} />
+        <Route path="/home/perfil" element={<Perfil />} />
         <Route path="/home/shopping/pago" element={<FormPago />} />
-
         <Route path="/home/blog" element={<Blog />} />
         <Route path="/home/contacto" element={<Contacto />} />
 
