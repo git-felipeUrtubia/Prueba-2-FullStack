@@ -10,10 +10,20 @@ export const Header = () => {
     const [btnCategoria, setBtnCategoria] = useState(0);
     const [rowRotate, setRowRotate] = useState(0);
     const [prod, setProd] = useState([]);
+    const [login, setLogin] = useState(false);
+
+    const token = JSON.parse(localStorage.getItem("token"));
+
+    useEffect(() => {
+        if (token == null) return
+        if (token.estado_token === "ACTIVE") setLogin(true);
+        else setLogin(false);
+
+    }, [token]);
 
     useEffect(() => {
         document.documentElement.style.setProperty("--btnCategoria", btnCategoria)
-    },[btnCategoria, rowRotate])
+    }, [btnCategoria, rowRotate])
 
     useEffect(() => {
         fetch("http://localhost:8080/api/v1/productos")
@@ -77,11 +87,11 @@ export const Header = () => {
                 `Precio: ${p.precioProducto}\n` +
                 `Id: ${p.id_producto}`
             );
-        }else {
+        } else {
             alert("No se encontró ningún título con ese nombre.");
         }
     }
-    
+
 
 
     return (
@@ -96,15 +106,29 @@ export const Header = () => {
 
                 <div className='contain-bar-search'>
                     <form onSubmit={handleSubmit}>
-                        <input type="text" value={titulo} onChange={handleChange} placeholder='Buscar'/>
+                        <input type="text" value={titulo} onChange={handleChange} placeholder='Buscar' />
                         <button type='submit' className='btn-buscar'>Buscar</button>
                     </form>
                 </div>
 
                 <div className='contain-buttons-sesion'>
-                    <button className='btn btn-outline-primary' onClick={NavLogin}>Iniciar Sesión</button>
-                    <button className='btn btn-outline-primary' onClick={NavRegistro}>Crear Cuenta</button>
+                    {!login ? (
+                        <>
+                            <button className='btn btn-outline-primary' onClick={NavLogin}>Iniciar Sesión</button>
+                            <button className='btn btn-outline-primary' onClick={NavRegistro}>Crear Cuenta</button>
+                        </>
+                    ) : (
+                        <>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle icon-perfile" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                            </svg>
+                        </>
+                    )}
                 </div>
+
+
+
 
             </div>
 
@@ -114,36 +138,36 @@ export const Header = () => {
             <div className='contain-botones-header'>
                 <button className='btn home' onClick={NavHome}><b>Home</b></button>
 
-                
+
                 <div className='contain-btn-categoria'>
                     <button className='btn categorias' onClick={handleBtnCategoria}>
-                        <span style={{color: "gray"}}>Categorias </span>
+                        <span style={{ color: "gray" }}>Categorias </span>
                         <span><ChevronDown style={{
-                            color: "grey", 
+                            color: "grey",
                             transform: `rotate(${rowRotate}deg)`,
                             transition: ".3s ease"
-                        }}/></span>
+                        }} /></span>
                     </button>
                     <div className='options'>
-                        <div className='option 1' onClick={() => {NavCat(1)}}>
+                        <div className='option 1' onClick={() => { NavCat(1) }}>
                             <span>suspenso</span>
                         </div>
-                        <div className='option 2' onClick={() => {NavCat(2)}}>
+                        <div className='option 2' onClick={() => { NavCat(2) }}>
                             <span>rpg</span>
                         </div>
-                        <div className='option 3' onClick={() => {NavCat(3)}}>
+                        <div className='option 3' onClick={() => { NavCat(3) }}>
                             <span>shooter</span>
                         </div>
                     </div>
                 </div>
 
-                <button className='btn blog' style={{color: "gray"}} onClick={NavBlog}>Blog</button>
+                <button className='btn blog' style={{ color: "gray" }} onClick={NavBlog}>Blog</button>
 
-                <button className='btn contacto' style={{color: "gray"}} onClick={NavContacto}>Contacto</button>
+                <button className='btn contacto' style={{ color: "gray" }} onClick={NavContacto}>Contacto</button>
 
 
                 <button className='btn carrito' onClick={NavPago}>
-                    <span><ShoppingCart style={{color: "white"}}/></span>
+                    <span><ShoppingCart style={{ color: "white" }} /></span>
                 </button>
             </div>
 
