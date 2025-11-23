@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import '../../../assets/styles/pago/FormPago.css'
+import { useNavigate } from 'react-router-dom';
 import axios from "axios"
 
 
@@ -10,6 +11,8 @@ export const FormPago = () => {
     const [fechaPago, setFechaPago] = useState("");
     const [metodoPago, setMetodoPago] = useState("");
     const [checkForm, setCheckForm] = useState(false);
+
+    const nav = useNavigate()
 
     const total = localStorage.getItem("total");
     // console.log("TOTAL A PAGAR:", total);
@@ -208,29 +211,70 @@ export const FormPago = () => {
             setCheckForm(true)
         }
 
-        axios.post("http://localhost:8080/api/v1/pedidos", {
-            cliente: {
-                "first_name_cli": formCli.first_name_cli,
-                "last_name_cli": formCli.last_name_cli
-            },
-            detalle_pedidos: prodJson,
-            pago: [
-                {
-                    "monto_total": parseInt(monto),
-                    "fecha_pago": fechaPago,
-                    "metodo_pago": metodoPago
-                }
-            ]
-        })
-            .then(response => {
-                console.log("OK:", response.data);
-                alert("Pago realizado con éxito.");
-                localStorage.setItem("total", 0);
-                localStorage.setItem("productos", JSON.stringify([]));
+        const tokenStr = JSON.parse(localStorage.getItem("token"))
+
+        const token = tokenStr ? tokenStr : null;
+        console.log(token.user.emailUser)
+        console.log(fechaPago)
+
+
+        if (token?.estado_token == "ACTIVE") {
+            axios.post("http://localhost:8080/api/v1/pedidos/pedConLogin", {
+                estado: "pendiente",
+
+                clienteEmail: token.user.emailUser,
+
+                detalle_pedidos: prodJson,
+                pago: [
+                    {
+                        "monto_total": parseInt(monto),
+                        "fecha_pago": fechaPago,
+                        "metodo_pago": metodoPago
+                    }
+                ]
             })
-            .catch(error => {
-                console.error("Error:", error);
-            });
+                .then(response => {
+                    console.log("OK:", response.data);
+                    alert("Pago realizado con éxito.");
+                    localStorage.setItem("total", 0);
+                    localStorage.setItem("productos", JSON.stringify([]));
+                    nav("/home")
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+
+        } else {
+
+            axios.post("http://localhost:8080/api/v1/pedidos", {
+                estado: "pendiente",
+                cliente: {
+                    "first_name_cli": formCli.first_name_cli,
+                    "last_name_cli": formCli.last_name_cli
+                },
+                detalle_pedidos: prodJson,
+                pago: [
+                    {
+                        "monto_total": parseInt(monto),
+                        "fecha_pago": fechaPago,
+                        "metodo_pago": metodoPago
+                    }
+                ]
+            })
+                .then(response => {
+                    console.log("OK:", response.data);
+                    alert("Pago realizado con éxito.");
+                    localStorage.setItem("total", 0);
+                    localStorage.setItem("productos", JSON.stringify([]));
+                    nav("/home")
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+
+        }
+
+
     };
 
     return (
@@ -247,7 +291,7 @@ export const FormPago = () => {
                 <div className="header"></div>
                 <div className="card">
                     <div className="card__title">Completa tu Pago</div>
-                    <form className="content-cart" onSubmit={ (e) => e.preventDefault() }>
+                    <form className="content-cart" onSubmit={(e) => e.preventDefault()}>
 
                         <div className='content-buttons-cart'>
                             <div className={`metodo ${metodoPago == "debito" ? "active" : ""}`} onClick={() => setMetodoPago("debito")}>
@@ -293,7 +337,7 @@ export const FormPago = () => {
 
 
                     </form>
-                    <form className="card__form" onSubmit={ handlePagar }>
+                    <form className="card__form" onSubmit={handlePagar}>
 
                         <input className="field field--card"
                             placeholder='Numero de tarjeta'

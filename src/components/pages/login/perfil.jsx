@@ -1,9 +1,23 @@
 
 import { useEffect } from 'react';
 import '../../../assets/styles/perfil.css';
+import axios from 'axios';
 
 export const Perfil = () => {
-        const data = JSON.parse(localStorage.getItem("token"));
+    const data = JSON.parse(localStorage.getItem("token"));
+
+    const handleClickPedidos = () => {
+        const token = JSON.parse(localStorage.getItem("token"))
+        axios.get(`http://localhost:8080/api/v1/pedidos/${token.token}`)
+            .then(response => {
+
+                const data = response.data;
+                localStorage.setItem("data_pedidos", JSON.stringify(data))
+
+            }).catch(error => {
+                console.log("Error: ", error)
+            })
+    }
 
 
     return (
@@ -19,14 +33,12 @@ export const Perfil = () => {
                 <div className='buttons-card-perfil'>
                     <a href="/home">¿ir al catalogo?</a>
                     <a href="/home" onClick={() => localStorage.clear()}>Cerrar Sesión</a>
-                    <a href="#">ver pedidos</a>
+                    <a href="/home/perfil/pedidos" onClick={ handleClickPedidos() }>ver pedidos</a>
                 </div>
             </div>
-            <div className="body-card-perfil">
-                Historial de compras
-            </div>
+            
             <footer className="footer-card-perfil">
-                Algun color de fondo
+                <p class="footer-copy">© 2025 LevelUp Store — Todos los derechos reservados.</p>
             </footer>
         </section>
     )

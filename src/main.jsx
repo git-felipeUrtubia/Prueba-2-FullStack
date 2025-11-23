@@ -12,6 +12,7 @@ import { FormPago } from './components/pages/pago/formPago.jsx';
 import { Blog } from './components/pages/w-osorio/pages/Blog.jsx'; 
 import { Contacto } from './components/pages/w-osorio/pages/Contacto.jsx';
 import { Perfil } from './components/pages/login/perfil.jsx';
+import { Pedidos } from './components/pages/pedidos/pedidos.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -27,6 +28,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/home/shopping/pago" element={<FormPago />} />
         <Route path="/home/blog" element={<Blog />} />
         <Route path="/home/contacto" element={<Contacto />} />
+        <Route path="/home/perfil/pedidos" element={<Pedidos />} />
 
       </Routes>
     </BrowserRouter>

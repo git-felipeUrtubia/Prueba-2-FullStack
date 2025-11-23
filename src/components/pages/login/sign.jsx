@@ -52,14 +52,11 @@ export const Sign = () => {
                     nav("/home");
                 } else {
                     alert("Email o contraseña incorrectos ❌");
-                }
-                
+                }       
 
             }).catch(error => {
                 console.log("Error: ", error)
             })
-
-
 
     }
 
