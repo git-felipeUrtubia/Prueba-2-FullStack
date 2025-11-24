@@ -17,7 +17,7 @@ export const Sign = () => {
         const { name, value } = e.target;
         setForm({
             ...form,
-            [name]: value.trim()
+            [name]: value
         })
     }
 
@@ -81,7 +81,7 @@ export const Sign = () => {
                     </div>
                     <div className="input-container">
                         <input
-                            type="password"
+                            type="text"
                             placeholder="Enter password"
                             name='passd'
                             value={form.passd}
