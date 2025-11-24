@@ -8,7 +8,8 @@ import '../../../assets/styles/pedidos.css'
 export const Pedidos = () => {
 
 
-    const data_pedidos = JSON.parse(localStorage.getItem("data_pedidos")); 
+    const data_pedidos = JSON.parse(localStorage.getItem("data_pedidos"));
+    console.log(data_pedidos)
 
     return (
         <section className="sec-pedidos">
@@ -28,19 +29,17 @@ export const Pedidos = () => {
                         </thead>
                         <tbody>
 
-                            {pedido.detalle.map((det) =>
-                                det.producto.map((prod, i) => (
+                            {pedido.detalle.productos.map((prod, i) => (
 
-                                    <tr>
-                                        <td scope="row">{i + 1}</td>
+                                <tr>
+                                    <td scope="row">{i + 1}</td>
+                                    <td>{prod.nomProducto}</td>
+                                    <td>{prod.precioProducto}</td>
+                                    <td>{prod.cant}</td>
+                                    <td>{prod.catProducto}</td>
+                                </tr>
 
-                                        <td>{prod.nomProducto}</td>
-                                        <td>{prod.precioProducto}</td>
-                                        <td>{det.cantidad}</td>
-                                        <td>{prod.catProducto}</td>
-                                    </tr>
-
-                                )))}
+                            ))}
 
 
                         </tbody>
