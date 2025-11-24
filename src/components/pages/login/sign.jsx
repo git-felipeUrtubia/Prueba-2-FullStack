@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import '../../../assets/styles/sign.css'
 import axios from "axios"
-import { data } from 'react-router-dom';
 
 
 export const Sign = () => {
@@ -88,6 +87,12 @@ export const Sign = () => {
                             value={form.passd}
                             onChange={handleChange}
                         />
+                    </div>
+
+                    <div className='contain-reset-passd'>
+                        <span>
+                            <a href="/home/perfil/password">¿Olvidaste contraseña?</a>
+                        </span>
                     </div>
 
                     <button type="submit" className="submit">Sign in</button>

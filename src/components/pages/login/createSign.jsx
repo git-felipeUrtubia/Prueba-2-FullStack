@@ -2,8 +2,11 @@
 import { useState } from 'react'
 import '../../../assets/styles/createSign.css'
 import axios from "axios"
+import { useNavigate } from 'react-router-dom'
 
 export const CreateSign = () => {
+
+    const nav = useNavigate()
 
     const [form, setForm] = useState({
         "first_name": "",
@@ -133,6 +136,7 @@ export const CreateSign = () => {
                     passd: "",
                     passd_conf: ""
                 });
+                nav("/home/login")
             })
             .catch(error => {
                 console.error("Error:", error);

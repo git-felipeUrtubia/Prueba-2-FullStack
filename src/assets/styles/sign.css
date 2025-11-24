@@ -20,6 +20,13 @@
     align-items: center;
 }
 
+.contain-reset-passd {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* From Uiverse.io by nathann09 */ 
 
 .form {

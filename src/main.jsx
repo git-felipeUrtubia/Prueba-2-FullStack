@@ -13,6 +13,8 @@ import { Blog } from './components/pages/w-osorio/pages/Blog.jsx';
 import { Contacto } from './components/pages/w-osorio/pages/Contacto.jsx';
 import { Perfil } from './components/pages/login/perfil.jsx';
 import { Pedidos } from './components/pages/pedidos/pedidos.jsx';
+import { UpdatePassd } from './components/pages/login/updatePassd.jsx';
+import { ResetPassword } from './components/pages/login/resetPassword.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -29,7 +31,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/home/blog" element={<Blog />} />
         <Route path="/home/contacto" element={<Contacto />} />
         <Route path="/home/perfil/pedidos" element={<Pedidos />} />
-
+        <Route path="/home/perfil/password" element={<UpdatePassd />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
