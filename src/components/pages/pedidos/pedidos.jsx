@@ -8,7 +8,7 @@ import '../../../assets/styles/pedidos.css'
 export const Pedidos = () => {
 
 
-    const data_pedidos = JSON.parse(localStorage.getItem("data_pedidos"));
+    const data_pedidos = JSON.parse(localStorage.getItem("data_pedidos")); 
 
     return (
         <section className="sec-pedidos">
